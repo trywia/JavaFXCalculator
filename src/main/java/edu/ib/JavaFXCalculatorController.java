@@ -9,10 +9,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 
 public class JavaFXCalculatorController {
-    private static double number;
-    private static String sign;
-    private static String prevSign;
-    private static double lastOperation;
+    MethodsCalculator calculator = new MethodsCalculator();
 
     @FXML
     private ResourceBundle resources;
@@ -80,271 +77,100 @@ public class JavaFXCalculatorController {
     @FXML
     private Button equal;
 
+
     @FXML
     void onChangeSignClicked(ActionEvent event) {
-        String[] displayText = display.getText().split("");
-        if (Double.parseDouble(display.getText()) != 0) {
-            if (displayText[0].equals("-")) {
-                String signText = "";
-                for (int i = 1; i < displayText.length; i++) {
-                    signText += displayText[i];
-                }
-                display.setText(signText);
-            } else {
-                display.setText("-" + display.getText());
-            }
-        }
+        calculator.onChangeSignClicked(display);
     }
 
     @FXML
     void onAddClicked(ActionEvent event) {
-        if (number != 0) {
-            double number1 = Double.parseDouble(display.getText());
-            if (sign.equals("+")) {
-                number += number1;
-            } else if (sign.equals("-")) {
-                number -= number1;
-            } else if (sign.equals("*")) {
-                number *= number1;
-            } else if (sign.equals("/")) {
-                number /= number1;
-            }
-            sign = "+";
-            display.setText("0");
-        } else {
-            number = Double.parseDouble(display.getText());
-            sign = "+";
-            display.setText("0");
-        }
+        calculator.onAddClicked(display);
     }
 
     @FXML
     void onClearClicked(ActionEvent event) {
-        lastOperation = 0;
-        number = 0;
-        sign = "";
-        display.setText("0");
+        calculator.onClearClicked(display);
     }
 
     @FXML
     void onDivideClicked(ActionEvent event) {
-        if (number != 0) {
-            double number1 = Double.parseDouble(display.getText());
-            if (sign.equals("+")) {
-                number += number1;
-            } else if (sign.equals("-")) {
-                number -= number1;
-            } else if (sign.equals("*")) {
-                number *= number1;
-            } else if (sign.equals("/")) {
-                number /= number1;
-            }
-            sign = "/";
-            display.setText("0");
-        } else {
-            number = Double.parseDouble(display.getText());
-            sign = "/";
-            display.setText("0");
-        }
+        calculator.onDivideClicked(display);
     }
 
     @FXML
     void onDotClicked(ActionEvent event) {
-        String[] displayText = display.getText().split("");
-        boolean flag = false;
-        // check if there is no dot already
-        for (int i = 0; i < displayText.length; i++) {
-            if (displayText[i].equals(".")) {
-                flag = true;
-            }
-        }
-        // no dots
-        if (!flag) {
-            display.setText(display.getText() + ".");
-        }
+        calculator.onDotClicked(display);
     }
 
     @FXML
     void onEightClicked(ActionEvent event) {
-        if (display.getText().equals("0")) {
-            display.setText("8");
-        } else {
-            display.setText(display.getText() + "8");
-        }
+        calculator.onEightClicked(display);
     }
 
     @FXML
     void onEqualClicked(ActionEvent event) {
-        double number1 = Double.parseDouble(display.getText());
-
-        if (sign.equals("")) {
-
-            // repeat last operation
-            if (prevSign.equals("+")) {
-                number += lastOperation;
-                display.setText(Double.toString(number));
-            } else if (prevSign.equals("-")) {
-                number -= lastOperation;
-                display.setText(Double.toString(number));
-            } else if (prevSign.equals("*")) {
-                number *= lastOperation;
-                display.setText(Double.toString(number));
-            } else if (prevSign.equals("/")) {
-                number /= lastOperation;
-                display.setText(Double.toString(number));
-            }
-            sign = prevSign;
-        } else if (sign.equals("+")) {
-            lastOperation = Double.parseDouble(display.getText());
-            number += number1;
-            display.setText(Double.toString(number));
-        } else if (sign.equals("-")) {
-            lastOperation = Double.parseDouble(display.getText());
-            number -= number1;
-            display.setText(Double.toString(number));
-        } else if (sign.equals("*")) {
-            lastOperation = Double.parseDouble(display.getText());
-            number *= number1;
-            display.setText(Double.toString(number));
-        } else if (sign.equals("/")) {
-            lastOperation = Double.parseDouble(display.getText());
-            number /= number1;
-            display.setText(Double.toString(number));
-        }
-        prevSign = sign;
-        sign = "";
+        calculator.onEqualClicked(display);
     }
 
     @FXML
     void onFiveClicked(ActionEvent event) {
-        if (display.getText().equals("0")) {
-            display.setText("5");
-        } else {
-            display.setText(display.getText() + "5");
-        }
+        calculator.onFiveClicked(display);
     }
 
     @FXML
     void onFourClicked(ActionEvent event) {
-        if (display.getText().equals("0")) {
-            display.setText("4");
-        } else {
-            display.setText(display.getText() + "4");
-        }
+        calculator.onFourClicked(display);
     }
 
     @FXML
     void onMultiplyClicked(ActionEvent event) {
-        if (number != 0) {
-            double number1 = Double.parseDouble(display.getText());
-            if (sign.equals("+")) {
-                number += number1;
-            } else if (sign.equals("-")) {
-                number -= number1;
-            } else if (sign.equals("*")) {
-                number *= number1;
-            } else if (sign.equals("/")) {
-                number /= number1;
-            }
-            sign = "*";
-            display.setText("0");
-        } else {
-            number = Double.parseDouble(display.getText());
-            sign = "*";
-            display.setText("0");
-        }
+        calculator.onMultiplyClicked(display);
     }
 
     @FXML
     void onNineClicked(ActionEvent event) {
-        if (display.getText().equals("0")) {
-            display.setText("9");
-        } else {
-            display.setText(display.getText() + "9");
-        }
+        calculator.onNineClicked(display);
     }
 
     @FXML
     void onOneClicked(ActionEvent event) {
-        if (display.getText().equals("0")) {
-            display.setText("1");
-        } else {
-            display.setText(display.getText() + "1");
-        }
+        calculator.onOneClicked(display);
     }
 
     @FXML
     void onPercentClicked(ActionEvent event) {
-        double number1 = Double.parseDouble(display.getText());
-        number1 /= 100;
-        display.setText(Double.toString(number1));
+        calculator.onPercentClicked(display);
     }
 
     @FXML
     void onSevenClicked(ActionEvent event) {
-        if (display.getText().equals("0")) {
-            display.setText("7");
-        } else {
-            display.setText(display.getText() + "7");
-        }
+        calculator.onSevenClicked(display);
     }
 
     @FXML
     void onSixClicked(ActionEvent event) {
-        if (display.getText().equals("0")) {
-            display.setText("6");
-        } else {
-            display.setText(display.getText() + "6");
-        }
+        calculator.onSixClicked(display);
     }
 
     @FXML
     void onSubtractClicked(ActionEvent event) {
-        if (number != 0) {
-            double number1 = Double.parseDouble(display.getText());
-            if (sign.equals("+")) {
-                number += number1;
-            } else if (sign.equals("-")) {
-                number -= number1;
-            } else if (sign.equals("*")) {
-                number *= number1;
-            } else if (sign.equals("/")) {
-                number /= number1;
-            }
-            sign = "-";
-            display.setText("0");
-        } else {
-            number = Double.parseDouble(display.getText());
-            sign = "-";
-            display.setText("0");
-        }
+        calculator.onSubtractClicked(display);
     }
 
     @FXML
     void onThreeClicked(ActionEvent event) {
-        if (display.getText().equals("0")) {
-            display.setText("3");
-        } else {
-            display.setText(display.getText() + "3");
-        }
+        calculator.onThreeClicked(display);
     }
 
     @FXML
     void onTwoClicked(ActionEvent event) {
-        if (display.getText().equals("0")) {
-            display.setText("2");
-        } else {
-            display.setText(display.getText() + "2");
-        }
+        calculator.onTwoClicked(display);
     }
 
     @FXML
     void onZeroClicked(ActionEvent event) {
-        if (display.getText().equals("0")) {
-            display.setText("0");
-        } else {
-            display.setText(display.getText() + "0");
-        }
+        calculator.onZeroClicked(display);
     }
 
     @FXML
